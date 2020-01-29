@@ -1,0 +1,46 @@
+[ServiceContract]
+public interface IService
+{
+  [OperationContract]
+  [WebGet(UriTemplate="Patient/{id}", ResponseFormat=WebMessageFormat.json)]
+  Patient GetPatient(string id};
+
+  [OperationContract]
+  [WebInvoke(UriTemplate="Patient/Add", Method="POST"]
+  int AddPatient(Patient patient);
+
+  [OperationContract]
+  [WebInvoke(UriTemplate="Patient/Update", Method="PUT"]
+  int UpdatePatient(Patient patient);
+
+}
+
+//asp.net
+
+public ActionResult GetPatientDetail(int id) 
+{
+WebClient proxy = new WebClient();
+string serviceUrl
+byte[] data = proxy.DownloadData(serviceUrl);
+Stream mem= new MemoryStream(data);
+var reader = new StreamReader(mem);
+var result = reader.readToEnd();
+var model = JsonConvert.DeserializeObject<PatientModel>(result);
+return View(model);
+}
+
+[HttpPost]
+public ActionResult Edit (PatientModel model)
+{
+  string url;
+  string myParameters ="Id=" + model.id +"&Name=" + ...
+  using(WebClient client = new WebClient()) 
+  {
+    client.Headers[HttpRequestHeader.ContentType]="application/x-www-form-urlencoded";
+    client.UploadString(url, myParameters);
+  }
+  
+
+  return RedirectToAction("Index");
+}
+//
